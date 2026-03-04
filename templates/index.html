@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lost & Found Dashboard</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    /* ===== BASE STYLE ===== */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f6f7ff, #e2f0ff, #fff0f5);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      width: 100%;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      text-align: center;
+      padding: 30px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "🔎";
+      font-size: 60px;
+      position: absolute;
+      top: 10px;
+      right: 40px;
+      opacity: 0.15;
+      transform: rotate(-20deg);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    /* ===== MAIN CONTAINER ===== */
+    .container {
+      background: #ffffff;
+      margin-top: 40px;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      width: 92%;
+      max-width: 1150px;
+      text-align: center;
+      border: 3px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Floating Gradient Border */
+    .container::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      z-index: -1;
+      background: linear-gradient(135deg, #2575fc, #6a11cb, #ff758c);
+      border-radius: 22px;
+    }
+
+    /* ===== CONTROL BAR ===== */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .search-box input {
+      padding: 11px 15px;
+      border-radius: 10px;
+      border: 2px solid #dcdcdc;
+      outline: none;
+      width: 240px;
+      font-size: 15px;
+      transition: 0.3s ease;
+      background: #f9fbff;
+    }
+
+    .search-box input:focus {
+      border-color: #6a11cb;
+      box-shadow: 0 0 8px rgba(106, 17, 203, 0.25);
+      background: #fff;
+    }
+
+    select {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+      outline: none;
+      font-size: 15px;
+      cursor: pointer;
+      background: #f9fbff;
+      transition: 0.2s ease;
+    }
+
+    select:hover {
+      border-color: #6a11cb;
+    }
+
+    /* ===== BUTTON STYLE ===== */
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      color: #fff;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      margin: 8px 6px;
+      font-size: 15px;
+      box-shadow: 0 4px 10px rgba(37, 117, 252, 0.3);
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+    }
+
+    /* ===== TABLE ===== */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    th, td {
+      text-align: center;
+      padding: 14px 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 14px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8f9ff;
+    }
+
+    tr:hover {
+      background-color: #eef4ff;
+      transition: 0.3s ease;
+    }
+
+    td a.btn {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+
+    td:last-child {
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* ===== BADGES ===== */
+    .status-lost {
+      color: #ff3b3b;
+      font-weight: 600;
+    }
+
+    .status-found {
+      color: #2575fc;
+      font-weight: 600;
+    }
+
+    .status-claimed {
+      color: #16c79a;
+      font-weight: 600;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .controls {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .search-box input, select {
+        width: 100%;
+      }
+
+      table {
+        font-size: 13px;
+      }
+
+      th, td {
+        padding: 10px 5px;
+      }
+
+      .btn {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎒 Lost & Found Dashboard</h1>
+    <p>Track, Report, and Reunite — One Item at a Time 💜</p>
+  </header>
+
+  <div class="container">
+    <div class="controls">
+      <div class="search-box">
+        <input type="text" placeholder="🔍 Search for an item...">
+      </div>
+
+      <div>
+        <select>
+          <option value="">📂 Filter by Status</option>
+          <option value="Lost">🔴 Lost</option>
+          <option value="Found">🔵 Found</option>
+          <option value="Claimed">🟢 Claimed</option>
+        </select>
+
+        <a href="/add" class="btn">➕ Report New Item</a>
+      </div>
+    </div>
+
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Item Name</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+
+      {% for i in items %}
+      <tr>
+        <td>{{ i.item_id }}</td>
+        <td>{{ i.item_name }}</td>
+        <td>{{ i.description }}</td>
+        <td>{{ i.location }}</td>
+        <td>{{ i.date_reported }}</td>
+        <td class="
+          {% if i.status == 'Lost' %}status-lost
+          {% elif i.status == 'Found' %}status-found
+          {% else %}status-claimed{% endif %}
+        ">
+          {{ i.status }}
+        </td>
+        <td>
+          {% if i.status != 'Claimed' %}
+          <a href="/claim/{{ i.item_id }}" class="btn">✅ Mark Claimed</a>
+          {% else %}
+          Claimed 🏷️
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+</body>
+</html>

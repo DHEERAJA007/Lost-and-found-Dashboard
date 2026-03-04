@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Report Lost or Found Item</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #a18cd1, #fbc2eb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      width: 420px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      border-radius: 50%;
+      opacity: 0.15;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    h2::after {
+      content: "📦";
+      position: absolute;
+      right: -35px;
+      font-size: 28px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #444;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s ease;
+      background: #f9f9ff;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #6a11cb;
+      box-shadow: 0 0 5px rgba(106, 17, 203, 0.3);
+      background: #fff;
+    }
+
+    textarea {
+      resize: none;
+      height: 70px;
+    }
+
+    .btn {
+      margin-top: 25px;
+      width: 100%;
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 117, 252, 0.4);
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-top: 15px;
+    }
+
+    .footer span {
+      color: #6a11cb;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Report Lost or Found</h2>
+    <form action="/add_item" method="POST">
+      <label>Item Name:</label>
+      <input type="text" name="item_name" required>
+
+      <label>Description:</label>
+      <textarea name="description" placeholder="Describe the item..."></textarea>
+
+      <label>Location:</label>
+      <input type="text" name="location" required>
+
+      <label>Status:</label>
+      <select name="status">
+        <option value="Lost">🔍 Lost</option>
+        <option value="Found">🎉 Found</option>
+      </select>
+
+      <label>Your Name:</label>
+      <input type="text" name="reporter_name" required>
+
+      <label>Contact:</label>
+      <input type="text" name="reporter_contact" required>
+
+      <button type="submit" class="btn">Submit Report</button>
+    </form>
+    <div class="footer">
+      Made with 💜 by <span>Lost & Found Portal</span>
+    </div>
+  </div>
+</body>
+</html>
